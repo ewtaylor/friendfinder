@@ -1,16 +1,16 @@
 
-var path = require("path");
+var path = require('path');
 
-module.exports = function(app) {
-
-  // HTML GET Requests
-  app.get("/survey", function(req, res) {
-    res.sendFile(path.join(__dirname, "/../public/survey.html"));
+//Two HTML Routes
+module.exports = function(app){
+//Get route to display the survey page
+ app.get('/survey', function (req, res) {
+    res.sendFile(path.join(__dirname, '/../public/survey.html'));
   });
 
-  // Default to home if no match
+ //USE route to display the home page
   app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname, "/../public/home.html"));
+    res.sendFile(path.join(__dirname, '/../public/home.html'));
   });
 
 };

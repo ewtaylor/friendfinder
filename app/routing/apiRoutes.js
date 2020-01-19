@@ -1,45 +1,62 @@
 
-var friends = require("../data/friends");
+var friendMatch = require('../data/friends.js');
 
+//ROUTING
+// Two Routes with express parameters
 module.exports = function(app) {
- 
-app.get("/api/friends", function(req, res) {
-    res.json(friends);
+   // A GET json route to display all possible friends
+  app.get('/api/friends', function (req, res) {
+    res.json(friendMatch);
   });
+  // A POST route to handle incoming survey results
+  app.post('/api/friends', function (req, res) {
 
-  // API POST Requests
-  app.post("/api/friends", function(req, res) {
-    
-    var bestMatch = {
-      name: "",
-      photo: "",
-      friendDifference: Infinity
-    };
+   
+    var newFriend = req.body;
+    //score loop
+    for(var i = 0; i < newFriend.scores.length; i++) {
+      if(newFriend.scores[i] == "1 (Yes)") {
 
-    var userData = req.body;
-    var userScores = userData.scores;
-    var totalDifference;
+        newFriend.scores[i] = 1;
+      } else if(newFriend.scores[i] == "3 (No)") {
 
-    for (var i = 0; i < friends.length; i++) {
-      var currentFriend = friends[i];
-      totalDifference = 0;
+        newFriend.scores[i] = 3;
+      } else {
 
-      console.log(currentFriend.name);
-
-      for (var j = 0; j < currentFriend.scores.length; j++) {
-        var currentFriendScore = currentFriend.scores[j];
-        var currentUserScore = userScores[j];
-      totalDifference += Math.abs(parseInt(currentUserScore) - parseInt(currentFriendScore));
-      }
-
-      if (totalDifference <= bestMatch.friendDifference) {
-        // Reset the bestMatch to be the new friend.
-        bestMatch.name = currentFriend.name;
-        bestMatch.photo = currentFriend.photo;
-        bestMatch.friendDifference = totalDifference;
+        newFriend.scores[i] = parseInt(newFriend.scores[i]);
       }
     }
-    friends.push(userData);
-    res.json(bestMatch);
+    
+    //array for the comparison
+    var comparisonArray = [];
+
+    for(var i = 0; i < friendMatch.length; i++) {
+      //Determine the users most compatible friend
+      var comparedFriend = friendMatch[i];
+     
+      var totalDifference = 0;
+      
+      for(var k = 0; k < comparedFriend.scores.length; k++) {
+      
+        var differenceOneScore = Math.abs(comparedFriend.scores[k] - newFriend.scores[k]);
+        totalDifference += differenceOneScore;
+      }
+
+      comparisonArray[i] = totalDifference;
+    }
+
+    var bestFriendNum = comparisonArray[0];
+    var bestFriendI = 0;
+
+    for(var i = 1; i < comparisonArray.length; i++) {
+      if(comparisonArray[i] < bestFriendNum) {
+        bestFriendNum = comparisonArray[i];
+        bestFriendI = i;
+      }
+    }
+    //push new friend
+    friendMatch.push(newFriend);
+  
+    res.json(friendMatch[bestFriendI]);
   });
 };
