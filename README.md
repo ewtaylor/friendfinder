@@ -21,4 +21,4 @@ User 2: [3, 2, 6, 4, 5, 1, 2, 5, 4, 1]
 Total Difference: 2 + 1 + 2 = 5
 The person with the closest match will be the one with the "least" amount of difference.
 
-The result will display the name and picture of the closest match!
+The result will display the name and picture of the best match!
