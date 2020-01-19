@@ -158,7 +158,7 @@
     <hr>
     <footer class="footer">
       <div class="container">
-        <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/afhaque/friendfinder">GitHub Repo</a></p>
+        <p><a href="/api/friends">API Friends List</a> | <a href="https://ewtaylor.github.io/friendfinder/">GitHub Repo</a></p>
       </div>
     </footer>
 
@@ -230,9 +230,9 @@
         return isValid;
       }
 
-      // If all required fields are filled
+  
       if (validateForm()) {
-        // Create an object for the user"s data
+
         var userData = {
           name: $("#name").val(),
           photo: $("#photo").val(),
@@ -253,11 +253,11 @@
         // AJAX post the data to the friends API.
         $.post("/api/friends", userData, function(data) {
 
-          // Grab the result from the AJAX post so that the best match's name and photo are displayed.
+          // Grab the result from the AJAX 
           $("#match-name").text(data.name);
           $("#match-img").attr("src", data.photo);
 
-          // Show the modal with the best match
+          // Show the best match
           $("#results-modal").modal("toggle");
 
         });
