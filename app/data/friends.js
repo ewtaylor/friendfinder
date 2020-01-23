@@ -1,10 +1,10 @@
-// DAvar friendMatch = [
+ var friendMatch = [
     {
       name: "Colin Firth",
       photo: "https://pmcdeadline2.files.wordpress.com/2016/10/colin-firth.jpg",
       scores: ["2", "2", "2", "2", "2"]
     }, {
-      name: "Leonardo DiCaprio"",
+      name: "Leonardo DiCaprio",
       photo: "https://upload.wikimedia.org/wikipedia/commons/9/96/Leonardo_Dicaprio_Cannes_2019_2.jpg",
       scores: ["3", "3", "3", "3", "3"]
     }, {
